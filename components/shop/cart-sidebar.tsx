@@ -110,7 +110,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({ children, className })
 
         <div className="flex flex-col h-full">
           {/* Cart Items */}
-          <ScrollArea className="flex-1 -mx-6 px-6">
+          <div className="flex-1 -mx-6 px-6 overflow-y-auto">
             {state.items.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <ShoppingBag className="h-16 w-16 text-gray-300 mb-4" />
