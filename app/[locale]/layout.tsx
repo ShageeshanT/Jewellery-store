@@ -73,7 +73,7 @@ export default async function RootLayout({
           locale={resolvedParams.locale}
           messages={messages}
         >
-          <body className={roboto.className}>
+          <body className={`${playfairDisplay.variable} font-sans`}>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
