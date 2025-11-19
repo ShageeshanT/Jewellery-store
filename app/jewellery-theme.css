@@ -1,0 +1,534 @@
+/* ========================================
+   EXCLUSIVE JEWELLERY THEME SYSTEM
+   ======================================== */
+
+/* Import Tailwind CSS */
+@import "tailwindcss";
+
+/* Theme Variables for Jewellery Brand */
+:root {
+  /* Primary Jewellery Colors - Gold Elegance */
+  --jewellery-gold: #d4af37;
+  --jewellery-gold-light: #f4e4bc;
+  --jewellery-gold-dark: #b8860b;
+  --jewellery-gold-shimmer: #ffd700;
+
+  /* Secondary Jewellery Colors - Silver & Platinum */
+  --jewellery-silver: #c0c0c0;
+  --jewellery-platinum: #e5e4e2;
+  --jewellery-rose: #b76e79;
+  --jewellery-white-gold: #f3e5d0;
+
+  /* Accent Colors - Gemstone Tones */
+  --jewellery-diamond: #f9fafb;
+  --jewellery-emerald: #50c878;
+  --jewellery-ruby: #e0115f;
+  --jewellery-sapphire: #0f52ba;
+  --jewellery-amethyst: #9966cc;
+
+  /* Background Colors */
+  --bg-luxury: #faf8f5;
+  --bg-velvet: #1a1a1a;
+  --bg-silk: #fef9f3;
+  --bg-marble: #f8f6f3;
+
+  /* Typography */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+
+  /* Textures & Effects */
+  --shadow-luxury: 0 10px 40px rgba(212, 175, 55, 0.15);
+  --shadow-gemstone: 0 20px 60px rgba(80, 200, 120, 0.2);
+  --shadow-velvet: 0 15px 35px rgba(26, 26, 26, 0.3);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-luxury);
+  color: #1a1a1a;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   JEWELLERY-SPECIFIC CLASSES
+   ======================================== */
+
+/* Display Typography */
+.jewellery-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.jewellery-title-bold {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--jewellery-gold);
+}
+
+.jewellery-subtitle {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--jewellery-gold);
+}
+
+.jewellery-heading {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.jewellery-text {
+  font-family: var(--font-body);
+  color: #4a4a4a;
+  line-height: 1.7;
+}
+
+/* ========================================
+   JEWELLERY COLOR PALETTE
+   ======================================== */
+
+.bg-jewellery-gold {
+  background: linear-gradient(135deg, var(--jewellery-gold), var(--jewellery-gold-light));
+}
+
+.bg-jewellery-velvet {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+}
+
+.bg-jewellery-silk {
+  background: var(--bg-silk);
+}
+
+.bg-jewellery-marble {
+  background: var(--bg-marble);
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(193, 110, 121, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(240, 228, 192, 0.08) 0%, transparent 50%);
+}
+
+.text-jewellery-gold {
+  color: var(--jewellery-gold);
+}
+
+.text-jewellery-silver {
+  color: var(--jewellery-silver);
+}
+
+.text-jewellery-rose {
+  color: var(--jewellery-rose);
+}
+
+/* ========================================
+   LUXURY BUTTONS
+   ======================================== */
+
+.btn-jewellery-primary {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--jewellery-gold), var(--jewellery-gold-dark));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-jewellery-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-jewellery-primary:hover::before {
+  left: 100%;
+}
+
+.btn-jewellery-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.btn-jewellery-secondary {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--jewellery-gold);
+  border: 2px solid var(--jewellery-gold);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-jewellery-secondary:hover {
+  background: var(--jewellery-gold);
+  color: white;
+  box-shadow: var(--shadow-luxury);
+}
+
+/* ========================================
+   JEWELLERY CARDS & COMPONENTS
+   ======================================== */
+
+.jewellery-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+}
+
+.jewellery-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--jewellery-gold), var(--jewellery-gold-light), var(--jewellery-gold));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.jewellery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-luxury);
+}
+
+.jewellery-card:hover::before {
+  transform: scaleX(1);
+}
+
+.jewellery-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  background: var(--jewellery-gold);
+  color: white;
+  border-radius: 20px;
+}
+
+/* ========================================
+   JEWELLERY IMAGE EFFECTS
+   ======================================== */
+
+.jewellery-image-container {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-silk);
+  border-radius: 12px;
+}
+
+.jewellery-image-shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: jewellery-shimmer 2s infinite;
+}
+
+.jewellery-image-reflection {
+  position: relative;
+}
+
+.jewellery-image-reflection::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.3), transparent);
+  transform: scaleY(-1);
+  opacity: 0.3;
+  border-radius: 0 0 50% 50%;
+}
+
+/* ========================================
+   JEWELLERY ANIMATIONS
+   ======================================== */
+
+@keyframes jewellery-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes jewellery-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+}
+
+@keyframes jewellery-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes jewellery-sparkle {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+
+.animate-jewellery-glow {
+  animation: jewellery-glow 2s ease-in-out infinite;
+}
+
+.animate-jewellery-float {
+  animation: jewellery-float 4s ease-in-out infinite;
+}
+
+.animate-jewellery-sparkle {
+  animation: jewellery-sparkle 1.5s ease-in-out infinite;
+}
+
+/* ========================================
+   JEWELLERY SPARKLE EFFECTS
+   ======================================== */
+
+.jewellery-sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.jewellery-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--jewellery-gold-shimmer);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--jewellery-gold-shimmer);
+}
+
+/* ========================================
+   JEWELLERY NAVIGATION
+   ======================================== */
+
+.jewellery-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.jewellery-nav-link {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.jewellery-nav-link:hover {
+  color: var(--jewellery-gold);
+  border-bottom-color: var(--jewellery-gold);
+}
+
+/* ========================================
+   JEWELLERY FORM INPUTS
+   ======================================== */
+
+.jewellery-input {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  background: white;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.jewellery-input:focus {
+  outline: none;
+  border-color: var(--jewellery-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.jewellery-textarea {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  background: white;
+  color: #1a1a1a;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+}
+
+.jewellery-textarea:focus {
+  outline: none;
+  border-color: var(--jewellery-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* ========================================
+   JEWELLERY LOADING STATES
+   ======================================== */
+
+.jewellery-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.jewellery-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.2),
+    transparent
+  );
+  animation: jewellery-shimmer 1.5s infinite;
+}
+
+/* ========================================
+   JEWELLERY PRICE DISPLAYS
+   ======================================== */
+
+.jewellery-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.jewellery-price-sale {
+  color: var(--jewellery-ruby);
+}
+
+.jewellery-price-original {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #9a9a9a;
+  text-decoration: line-through;
+}
+
+/* ========================================
+   JEWELLERY GEMSTONE INDICATORS
+   ======================================== */
+
+.jewellery-gemstone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.gemstone-diamond { background: linear-gradient(135deg, #ffffff, #f9fafb); }
+.gemstone-emerald { background: linear-gradient(135deg, #50c878, #3da862); }
+.gemstone-ruby { background: linear-gradient(135deg, #e0115f, #c41057); }
+.gemstone-sapphire { background: linear-gradient(135deg, #0f52ba, #0d47a1); }
+.gemstone-amethyst { background: linear-gradient(135deg, #9966cc, #7b5db8); }
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .jewellery-title {
+    font-size: 2rem;
+  }
+
+  .jewellery-title-bold {
+    font-size: 2.5rem;
+  }
+
+  .btn-jewellery-primary,
+  .btn-jewellery-secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .jewellery-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* ========================================
+   JEWELLERY SCROLLBAR
+   ======================================== */
+
+.jewellery-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.jewellery-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-silk);
+  border-radius: 10px;
+}
+
+.jewellery-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--jewellery-gold);
+  border-radius: 10px;
+}
+
+.jewellery-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--jewellery-gold-dark);
+}
