@@ -436,6 +436,89 @@ button {
   text-shadow: 0 0 20px hsl(var(--secondary));
 }
 
+/* Luxury typography and styling */
+.luxury-heading {
+  @apply font-playfair font-light tracking-wide text-foreground;
+}
+
+.luxury-heading-bold {
+  @apply font-playfair font-semibold tracking-wide;
+}
+
+.luxury-subheading {
+  @apply font-playfair font-light tracking-wider text-muted-foreground uppercase text-sm;
+}
+
+.luxury-text {
+  @apply font-sans text-foreground leading-relaxed;
+}
+
+.luxury-accent-text {
+  @apply font-playfair font-medium;
+  color: var(--primary);
+}
+
+.luxury-card {
+  @apply bg-card border border-border shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+.luxury-button-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg transition-all duration-300 font-playfair tracking-wide;
+}
+
+.luxury-button-secondary {
+  @apply border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-playfair tracking-wide;
+}
+
+.luxury-input {
+  @apply bg-background border border-border rounded-md px-4 py-3 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
+}
+
+.luxury-gold-border {
+  border-color: var(--primary);
+}
+
+.luxury-gold-text {
+  color: var(--primary);
+}
+
+.luxury-bg-gold-subtle {
+  background-color: var(--muted);
+}
+
+/* Luxury product card hover effects */
+.luxury-product-card {
+  @apply luxury-card overflow-hidden group cursor-pointer;
+}
+
+.luxury-product-card:hover {
+  @apply shadow-xl transform -translate-y-1;
+  box-shadow: 0 20px 25px -5px rgba(212, 175, 55, 0.1), 0 10px 10px -5px rgba(212, 175, 55, 0.04);
+}
+
+.luxury-product-image {
+  @apply overflow-hidden;
+}
+
+.luxury-product-image img {
+  @apply transition-transform duration-700 ease-out;
+}
+
+.luxury-product-card:hover .luxury-product-image img {
+  @apply scale-105;
+}
+
+.luxury-badge {
+  @apply inline-block px-3 py-1 text-xs font-playfair tracking-wide uppercase rounded-full;
+  background-color: var(--muted);
+  color: var(--primary);
+}
+
+.luxury-price {
+  @apply font-playfair font-semibold text-lg;
+  color: var(--primary);
+}
+
 /* Responsive design utilities */
 @media (max-width: 768px) {
   .animate-gradient-x,
