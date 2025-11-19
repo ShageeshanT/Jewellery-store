@@ -1,4 +1,4 @@
-import { Roboto } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TailwindIndicator } from "@/components/tailwindIndicator";
@@ -9,7 +9,11 @@ import { ScrollToTop } from "@/components/scroll-top";
 import Script from "next/script";
 import SEO_CONFIG from "@/lib/config/seo.config";
 
-const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
+const playfairDisplay = Playfair_Display({
+  weight: ["300", "400", "600"],
+  subsets: ["latin"],
+  variable: "--font-playfair-display"
+});
 
 export const metadata = {
   ...SEO_CONFIG,
