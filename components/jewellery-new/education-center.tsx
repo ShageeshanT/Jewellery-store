@@ -22,7 +22,9 @@ import {
   GraduationCap,
   FileText,
   Lightbulb,
-  CheckCircle
+  CheckCircle,
+  Search,
+  Mail
 } from 'lucide-react';
 
 interface EducationCenterProps {
