@@ -154,7 +154,7 @@ export const EducationCenter: React.FC<EducationCenterProps> = ({
     },
     {
       id: 3,
-      'title: 'Gold vs. Platinum: Which Metal is Right for You?',
+      title: 'Gold vs. Platinum: Which Metal is Right for You?',
       category: 'metals',
       readTime: '12 min read',
       rating: 4.7,
