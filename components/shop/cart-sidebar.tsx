@@ -136,7 +136,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({ children, className })
                 ))}
               </div>
             )}
-          </ScrollArea>
+          </div>
 
           {/* Cart Summary */}
           {state.items.length > 0 && (
