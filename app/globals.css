@@ -14,33 +14,33 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #fafafa; /* Very light gray for luxury feel */
+  --foreground: #1a1a1a; /* Dark charcoal for premium contrast */
 
-  --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card: #ffffff; /* Pure white for product cards */
+  --card-foreground: #1a1a1a;
 
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
+  --popover-foreground: #1a1a1a;
 
-  --primary: #015064; /* Main Primary */
-  --primary-foreground: #ffffff;
+  --primary: #d4af37; /* Classic gold - matches Cartier style */
+  --primary-foreground: #1a1a1a;
 
-  --secondary: #1e293b;
+  --secondary: #2d2d2d; /* Dark secondary for luxury contrast */
   --secondary-foreground: #ffffff;
 
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted: #f4e4bc; /* Light cream gold for backgrounds */
+  --muted-foreground: #666666;
 
-  --accent: #027d94; /* Brighter variant of primary */
+  --accent: #b8860b; /* Dark gold for hover states */
   --accent-foreground: #ffffff;
 
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #015064;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #d4af37;
 
   --success: #16a34a;
   --success-foreground: #ffffff;
@@ -51,13 +51,13 @@
   --info: #0891b2;
   --info-foreground: #ffffff;
 
-  /* Chart palette based on primary variants */
-  --chart-1: #015064; /* Main */
-  --chart-2: #027d94; /* Lighter blue */
-  --chart-3: #03a9c6; /* Bright cyan */
-  --chart-4: #5dd5e0; /* Aqua */
-  --chart-5: #c4f1f9; /* Lightest */
-  
+  /* Chart palette based on gold variants for luxury theme */
+  --chart-1: #d4af37; /* Classic gold */
+  --chart-2: #b8860b; /* Dark gold */
+  --chart-3: #f4e4bc; /* Light cream gold */
+  --chart-4: #daa520; /* Goldenrod */
+  --chart-5: #ffd700; /* Gold */
+
   --radius: 0.75rem;
 }
 
