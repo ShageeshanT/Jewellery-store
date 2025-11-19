@@ -142,7 +142,7 @@ export const EducationCenter: React.FC<EducationCenterProps> = ({
     },
     {
       id: 2,
-      'title: 'Diamond Shapes Guide: Round, Princess, Emerald, and More',
+      title: 'Diamond Shapes Guide: Round, Princess, Emerald, and More',
       category: 'diamonds',
       readTime: '15 min read',
       rating: 4.8,
