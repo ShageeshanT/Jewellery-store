@@ -58,7 +58,7 @@ export default function Header1() {
 
   useEffect(() => {
     if (isOpen) toggleMenu(); // Only close if it's open
-  }, [pathname]);
+  }, [pathname, isOpen, toggleMenu]);
 
   const scrollToSection = (id: string) => {
     if (!id.includes("#")) {

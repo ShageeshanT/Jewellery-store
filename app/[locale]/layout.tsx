@@ -1,5 +1,4 @@
-import { Roboto } from "next/font/google";
-import "../globals.css";
+import type { ReactNode } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TailwindIndicator } from "@/components/tailwindIndicator";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -7,30 +6,30 @@ import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollToTop } from "@/components/scroll-top";
 import Script from "next/script";
-import SEO_CONFIG from "@/lib/config/seo.config";
-
-const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
-
-export const metadata = {
-  ...SEO_CONFIG,
-};
 
 async function getMessages(locale: string) {
   try {
     return (await import(`@/locales/${locale}.json`)).default;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
-      console.warn(`Missing translation file for locale: ${locale}`);
+      console.warn(`Missing translation file for locale: ${locale}, falling back to 'en'.`);
     }
-    return {};
+    try {
+      return (await import(`@/locales/en.json`)).default;
+    } catch (fallbackError) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Missing fallback 'en' translation file.");
+      }
+      return {};
+    }
   }
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const resolvedParams = await params;
@@ -38,21 +37,17 @@ export default async function RootLayout({
 
   return (
     <ClerkProvider>
-      <html lang={resolvedParams.locale} suppressHydrationWarning>
-        <head>
-          <meta name="robots" content="index, follow" />
-          {/* Google Analytics - Replace GA_MEASUREMENT_ID with your actual Google Analytics ID */}
-          {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-            <>
-              <Script
-                strategy="afterInteractive"
-                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
-              />
-              <Script
-                id="google-analytics"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                  __html: `
+      {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+        <>
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
@@ -60,31 +55,27 @@ export default async function RootLayout({
                     page_path: window.location.pathname,
                   });
                 `,
-                }}
-              />
-            </>
-          )}
-        </head>
-        <NextIntlClientProvider
-          locale={resolvedParams.locale}
-          messages={messages}
+            }}
+          />
+        </>
+      )}
+      <NextIntlClientProvider
+        locale={resolvedParams.locale}
+        messages={messages}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <body className={roboto.className}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Toaster />
-              <ScrollToTop />
-              {children}
-              <Toaster />
-              {process.env.NODE_ENV === "development" && <TailwindIndicator />}
-            </ThemeProvider>
-          </body>
-        </NextIntlClientProvider>
-      </html>
+          <Toaster />
+          <ScrollToTop />
+          {children}
+          <Toaster />
+          {process.env.NODE_ENV === "development" && <TailwindIndicator />}
+        </ThemeProvider>
+      </NextIntlClientProvider>
     </ClerkProvider>
   );
 }

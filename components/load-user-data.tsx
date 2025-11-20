@@ -2,7 +2,7 @@
 
 import { useAppContext } from "@/context/app";
 import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function LoadUserData() {
@@ -10,26 +10,29 @@ export default function LoadUserData() {
   const { isSignedIn } = useAuth();
   const [loading, setLoading] = useState(false);
 
-  const fetchUserBillingData = async () => {
+  const fetchUserBillingData = useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`/api/app`, {
-      method: "GET",
-      cache: "force-cache",
-    });
+    try {
+      const res = await fetch(`/api/app`, {
+        method: "GET",
+        cache: "force-cache",
+      });
 
-    if (!res.ok) return;
+      if (!res.ok) return;
 
-    const data = await res.json();
-    setBilling(data.billing);
-    setUser(data.user);
-    setLoading(false);
-  };
+      const data = await res.json();
+      setBilling(data.billing);
+      setUser(data.user);
+    } finally {
+      setLoading(false);
+    }
+  }, [setBilling, setUser]);
 
   useEffect(() => {
     if (isSignedIn) {
       fetchUserBillingData();
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, fetchUserBillingData]);
 
   return (
     <>
