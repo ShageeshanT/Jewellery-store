@@ -1,14 +1,31 @@
 "use client";
 
 import { useAppContext } from "@/context/app";
-import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function LoadUserData() {
-  const { setBilling, user, setUser, billing } = useAppContext();
-  const { isSignedIn } = useAuth();
+  const { setBilling, setUser } = useAppContext();
   const [loading, setLoading] = useState(false);
+
+  // Check if Clerk is available and configured
+  const isClerkConfigured = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder';
+
+  let isSignedIn = false;
+
+  if (isClerkConfigured) {
+    // Only use Clerk if it's properly configured
+    try {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { useAuth } = require("@clerk/nextjs");
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const auth = useAuth();
+      isSignedIn = auth.isSignedIn || false;
+    } catch (error) {
+      // Clerk not available
+    }
+  }
 
   const fetchUserBillingData = async () => {
     setLoading(true);
@@ -17,7 +34,10 @@ export default function LoadUserData() {
       cache: "force-cache",
     });
 
-    if (!res.ok) return;
+    if (!res.ok) {
+      setLoading(false);
+      return;
+    }
 
     const data = await res.json();
     setBilling(data.billing);
