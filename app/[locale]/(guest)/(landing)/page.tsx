@@ -2,13 +2,47 @@ import { Button } from "@/components/ui/button";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import Link from "next/link";
 import Image from "next/image";
+import LiquidEther from "@/components/animations/LiquidEther";
+import LogoLoop from "@/components/animations/LogoLoop";
+import { Gem, Sparkles, Crown, Diamond } from "lucide-react";
 
 export default function LandingPage() {
+  const productLogos = [
+    { node: <div className="flex items-center gap-2"><Gem className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Rings</span></div>, title: "Signature Rings", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2"><Diamond className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Diamonds</span></div>, title: "Diamond Collection", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2"><Sparkles className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Earrings</span></div>, title: "Elegant Earrings", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2"><Crown className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Necklaces</span></div>, title: "Luxury Necklaces", href: "/jewellery" },
+  ];
+
   return (
     <>
       {/* Hero Section - Luxury Split Layout */}
-      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-50 via-white to-amber-50/30 pt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+        {/* Animated Background */}
+        <div className="absolute inset-0 z-0">
+          <LiquidEther
+            colors={['#FFD700', '#C0C0C0', '#DAA520', '#F5DEB3']}
+            mouseForce={20}
+            cursorSize={100}
+            isViscous={false}
+            viscous={30}
+            iterationsViscous={32}
+            iterationsPoisson={32}
+            resolution={0.5}
+            isBounce={false}
+            autoDemo={true}
+            autoSpeed={0.5}
+            autoIntensity={2.2}
+            takeoverDuration={0.25}
+            autoResumeDelay={3000}
+            autoRampDuration={0.6}
+          />
+        </div>
+
+        {/* Content overlay */}
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-1" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div className="space-y-10 opacity-0 animate-[fadeIn_1s_ease-out_0.2s_forwards]">
@@ -165,6 +199,31 @@ export default function LandingPage() {
                 EXPLORE ALL
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Categories Loop */}
+      <section className="py-16 px-4 md:px-6 lg:px-8 bg-white border-y border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs tracking-[0.4em] text-gray-500 font-light uppercase mb-4">
+              Explore Our Collections
+            </p>
+          </div>
+          <div className="h-20">
+            <LogoLoop
+              logos={productLogos}
+              speed={120}
+              direction="left"
+              logoHeight={48}
+              gap={80}
+              hoverSpeed={20}
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#ffffff"
+              ariaLabel="Product categories"
+            />
           </div>
         </div>
       </section>
