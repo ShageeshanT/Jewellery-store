@@ -36,63 +36,55 @@ export default async function RootLayout({
   const resolvedParams = await params;
   const messages = await getMessages(resolvedParams.locale);
 
-  // Check if Clerk is configured
-  const isClerkConfigured = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
-  const content = (
-    <html lang={resolvedParams.locale} suppressHydrationWarning>
-      <head>
-        <meta name="robots" content="index, follow" />
-        {/* Google Analytics - Replace GA_MEASUREMENT_ID with your actual Google Analytics ID */}
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <>
-            <Script
-              strategy="afterInteractive"
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
-            />
-            <Script
-              id="google-analytics"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
-                  page_path: window.location.pathname,
-                });
-              `,
-              }}
-            />
-          </>
-        )}
-      </head>
-      <NextIntlClientProvider
-        locale={resolvedParams.locale}
-        messages={messages}
-      >
-        <body className={roboto.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster />
-            <ScrollToTop />
-            {children}
-            <Toaster />
-            {process.env.NODE_ENV === "development" && <TailwindIndicator />}
-          </ThemeProvider>
-        </body>
-      </NextIntlClientProvider>
-    </html>
+  return (
+    <ClerkProvider dynamic>
+      <html lang={resolvedParams.locale} suppressHydrationWarning>
+        <head>
+          <meta name="robots" content="index, follow" />
+          {/* Google Analytics - Replace GA_MEASUREMENT_ID with your actual Google Analytics ID */}
+          {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+            <>
+              <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              />
+              <Script
+                id="google-analytics"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+                }}
+              />
+            </>
+          )}
+        </head>
+        <NextIntlClientProvider
+          locale={resolvedParams.locale}
+          messages={messages}
+        >
+          <body className={roboto.className}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Toaster />
+              <ScrollToTop />
+              {children}
+              <Toaster />
+              {process.env.NODE_ENV === "development" && <TailwindIndicator />}
+            </ThemeProvider>
+          </body>
+        </NextIntlClientProvider>
+      </html>
+    </ClerkProvider>
   );
-
-  // Only wrap with ClerkProvider if configured
-  if (isClerkConfigured) {
-    return <ClerkProvider>{content}</ClerkProvider>;
-  }
-
-  return content;
 }
