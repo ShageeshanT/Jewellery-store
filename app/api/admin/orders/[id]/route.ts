@@ -10,7 +10,7 @@ export const GET = async (
   await connectDB();
 
   try {
-    const { userId } = await auth();
+    const { userId, sessionClaims } = await auth();
 
     if (!userId) {
       return Response.json(
@@ -19,6 +19,19 @@ export const GET = async (
           message: "Unauthorized",
         },
         { status: 401 }
+      );
+    }
+
+    // Check if user has admin role
+    const role = sessionClaims?.metadata?.role as string | undefined;
+
+    if (role !== "admin") {
+      return Response.json(
+        {
+          status: "error",
+          message: "Forbidden - Admin access required",
+        },
+        { status: 403 }
       );
     }
 
@@ -58,7 +71,7 @@ export const PATCH = async (
   await connectDB();
 
   try {
-    const { userId } = await auth();
+    const { userId, sessionClaims } = await auth();
 
     if (!userId) {
       return Response.json(
@@ -70,8 +83,18 @@ export const PATCH = async (
       );
     }
 
-    // TODO: Add admin role check
-    // For now, allowing all authenticated users
+    // Check if user has admin role
+    const role = sessionClaims?.metadata?.role as string | undefined;
+
+    if (role !== "admin") {
+      return Response.json(
+        {
+          status: "error",
+          message: "Forbidden - Admin access required",
+        },
+        { status: 403 }
+      );
+    }
 
     const orderId = params.id;
     const body = await req.json();
