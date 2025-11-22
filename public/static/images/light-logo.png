@@ -1,0 +1,24 @@
+<svg width="120" height="45" viewBox="0 0 120 45" xmlns="http://www.w3.org/2000/svg">
+  <!-- AlgoKnights Logo - Light Mode -->
+  <defs>
+    <linearGradient id="lightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d97706;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b45309;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Diamond/Gem Icon -->
+  <g transform="translate(10, 12)">
+    <path d="M 10 0 L 15 8 L 10 20 L 5 8 Z" fill="url(#lightGrad)" />
+    <path d="M 10 0 L 15 8 L 10 20 L 5 8 Z" fill="none" stroke="#92400e" stroke-width="0.5" opacity="0.5" />
+  </g>
+
+  <!-- Text: AlgoKnights -->
+  <text x="35" y="28" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1f2937">
+    AlgoKnights
+  </text>
+
+  <!-- Decorative elements -->
+  <circle cx="28" cy="22" r="1" fill="#d97706" opacity="0.4" />
+  <circle cx="108" cy="22" r="1" fill="#d97706" opacity="0.4" />
+</svg>

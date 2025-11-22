@@ -13,10 +13,6 @@ export const Logo = ({ className }: { className?: string }) => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <div className="w-[120px] h-[45px] bg-gray-200 animate-pulse"></div>; // Skeleton loader until theme loads
-  }
-
   const currentTheme = theme === "system" ? systemTheme : theme;
   const logoUrl =
     currentTheme === "dark"
@@ -29,15 +25,20 @@ export const Logo = ({ className }: { className?: string }) => {
         "relative hover:scale-[1.02] duration-300 w-[120px] h-[45px]",
         className
       )}
+      suppressHydrationWarning
     >
-      <Image
-        className="object-contain"
-        src={logoUrl}
-        fill
-        sizes="120px"
-        alt={`${SiteSettings.name} Logo`}
-        priority
-      />
+      {!mounted ? (
+        <div className="w-[120px] h-[45px] bg-gray-200 animate-pulse" />
+      ) : (
+        <Image
+          className="object-contain"
+          src={logoUrl}
+          fill
+          sizes="120px"
+          alt={`${SiteSettings.name} Logo`}
+          priority
+        />
+      )}
     </div>
   );
 };
