@@ -11,6 +11,26 @@ export const publicRoutes = [
   "/:locale/blog(.*)",
   "/blog(.*)",
 
+  // Jewellery Store Guest Routes
+  "/:locale/jewellery(.*)",
+  "/jewellery(.*)",
+  "/:locale/product(.*)",
+  "/product(.*)",
+  "/:locale/services(.*)",
+  "/services(.*)",
+  "/:locale/stores(.*)",
+  "/stores(.*)",
+  "/:locale/contact(.*)",
+  "/contact(.*)",
+  "/:locale/cart(.*)",
+  "/cart(.*)",
+  "/:locale/checkout(.*)",
+  "/checkout(.*)",
+  "/:locale/order-confirmation(.*)",
+  "/order-confirmation(.*)",
+  "/:locale/custom-design(.*)",
+  "/custom-design(.*)",
+
   // Legal Routes
   "/terms(.*)",
   "/:locale/terms(.*)",
@@ -21,4 +41,11 @@ export const publicRoutes = [
   "/api/webhook(.*)",
   "/api/public(.*)",
   "/api/payments/lemonsqueezy/create-checkout(.*)",
+];
+
+// Admin routes that require admin role
+export const adminRoutes = [
+  "/:locale/admin(.*)",
+  "/admin(.*)",
+  "/api/admin(.*)",
 ];

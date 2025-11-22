@@ -1,36 +1,18 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
-import { locales } from "@/lib/config/locales";
-import { publicRoutes } from "@/lib/routes";
+import { routing } from "@/i18n/routing";
+import { publicRoutes, adminRoutes } from "@/lib/routes";
 import { NextResponse } from "next/server";
 
 // Configure i18n middleware
-const intlMiddleware = createMiddleware({
-  locales: locales.values,
-  defaultLocale: locales.default,
-});
+const intlMiddleware = createMiddleware(routing);
 
-// Create a matcher for public routes
+// Create matchers for public and admin routes
 const isPublicRoute = createRouteMatcher(publicRoutes);
+const isAdminRoute = createRouteMatcher(adminRoutes);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Redirect "/" to default or user-selected locale
-  if (req.nextUrl.pathname === "/") {
-    const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value;
-    const locale =
-      cookieLocale && locales.values.includes(cookieLocale)
-        ? cookieLocale
-        : locales.default;
-
-    const url = req.nextUrl.clone();
-    url.pathname = `/${locale}`;
-    return NextResponse.redirect(url);
-  }
-
-  if (!isPublicRoute(req)) {
-    await auth.protect(); // Protect private routes
-  }
-
+  // Skip intl middleware for API and TRPC routes
   if (
     req.nextUrl.pathname.startsWith("/api") ||
     req.nextUrl.pathname.startsWith("/trpc")
@@ -38,9 +20,41 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 
+  // Handle locale routing first - let next-intl handle the locale detection and redirect
   const intlResponse = intlMiddleware(req);
 
-  return intlResponse;
+  // If intlMiddleware returns a redirect (e.g., "/" to "/en"), return it
+  if (intlResponse) {
+    return intlResponse;
+  }
+
+  // Check if route is an admin route
+  if (isAdminRoute(req)) {
+    const { userId, sessionClaims } = await auth();
+
+    if (!userId) {
+      // Redirect to sign-in if not authenticated
+      const signInUrl = new URL("/sign-in", req.url);
+      signInUrl.searchParams.set("redirect_url", req.url);
+      return NextResponse.redirect(signInUrl);
+    }
+
+    // Check if user has admin role
+    const role = sessionClaims?.metadata?.role as string | undefined;
+
+    if (role !== "admin") {
+      // Redirect to home if not admin
+      const locale = routing.defaultLocale;
+      const homeUrl = new URL(`/${locale}`, req.url);
+      return NextResponse.redirect(homeUrl);
+    }
+  }
+
+  if (!isPublicRoute(req)) {
+    await auth.protect(); // Protect private routes
+  }
+
+  return NextResponse.next();
 });
 
 // Define config for the middleware

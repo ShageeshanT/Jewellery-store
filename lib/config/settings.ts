@@ -6,7 +6,7 @@ import { FooterLinkTypes } from "@/components/landing/footer-link";
  */
 
 /** The name of your application */
-export const SiteName = "Founderflow Boilerplate";
+export const SiteName = "AlgoKnights Boilerplate";
 
 /**
  * Main site settings interface
@@ -30,15 +30,15 @@ export interface SiteSettingsType {
  * ⚠️  IMPORTANT: Update these settings for your application
  */
 export const SiteSettings: SiteSettingsType = {
-  name: "Founderflow",
+  name: "AlgoKnights",
   logoUrlLight: "/static/images/light-logo.png",
   logoUrlDark: "/static/images/dark-logo.png",
   defaultTheme: "light",
-  domainName: "Founderflow.online",
+  domainName: "AlgoKnights.online",
   domainUrl:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "https://Founderflow.online",
+      : "https://AlgoKnights.online",
 };
 
 /**

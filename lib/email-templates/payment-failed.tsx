@@ -196,7 +196,7 @@ export function PaymentFailedEmail({
       >
         Best regards,
         <br />
-        The Founderflow Team
+        The AlgoKnights Team
       </Text>
     </BaseEmail>
   );
