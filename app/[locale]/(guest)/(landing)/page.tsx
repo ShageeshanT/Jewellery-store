@@ -8,10 +8,10 @@ import { Gem, Sparkles, Crown, Diamond } from "lucide-react";
 
 export default function LandingPage() {
   const productLogos = [
-    { node: <div className="flex items-center gap-2"><Gem className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Rings</span></div>, title: "Signature Rings", href: "/jewellery" },
-    { node: <div className="flex items-center gap-2"><Diamond className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Diamonds</span></div>, title: "Diamond Collection", href: "/jewellery" },
-    { node: <div className="flex items-center gap-2"><Sparkles className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Earrings</span></div>, title: "Elegant Earrings", href: "/jewellery" },
-    { node: <div className="flex items-center gap-2"><Crown className="w-8 h-8 text-amber-600" /><span className="text-sm font-medium">Necklaces</span></div>, title: "Luxury Necklaces", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2 group"><Gem className="w-8 h-8 text-amber-600 group-hover:text-yellow-500 transition-colors" /><span className="text-sm font-medium text-black group-hover:text-amber-600 transition-colors">Rings</span></div>, title: "Signature Rings", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2 group"><Diamond className="w-8 h-8 text-amber-600 group-hover:text-yellow-500 transition-colors" /><span className="text-sm font-medium text-black group-hover:text-amber-600 transition-colors">Diamonds</span></div>, title: "Diamond Collection", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2 group"><Sparkles className="w-8 h-8 text-amber-600 group-hover:text-yellow-500 transition-colors" /><span className="text-sm font-medium text-black group-hover:text-amber-600 transition-colors">Earrings</span></div>, title: "Elegant Earrings", href: "/jewellery" },
+    { node: <div className="flex items-center gap-2 group"><Crown className="w-8 h-8 text-amber-600 group-hover:text-yellow-500 transition-colors" /><span className="text-sm font-medium text-black group-hover:text-amber-600 transition-colors">Necklaces</span></div>, title: "Luxury Necklaces", href: "/jewellery" },
   ];
 
   return (

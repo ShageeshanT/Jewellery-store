@@ -50,7 +50,11 @@ export default function Header1() {
   const { setBilling, setUser } = useAppContext();
   const { isSignedIn, isLoaded } = useAuth();
 
-  const { data, error } = useSWR("/api/app", fetcher);
+  // Only fetch user data if signed in
+  const { data, error } = useSWR(
+    isSignedIn ? "/api/app" : null,
+    fetcher
+  );
 
   useEffect(() => {
     if (data) {
