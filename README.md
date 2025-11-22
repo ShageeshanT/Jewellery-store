@@ -1,4 +1,4 @@
-# Founderflow - SaaS Boilerplate
+# AlgoKnights - SaaS Boilerplate
 
 A complete, production-ready Next.js SaaS boilerplate with authentication, payments, internationalization, and more.
 
@@ -33,7 +33,7 @@ A complete, production-ready Next.js SaaS boilerplate with authentication, payme
 
 ```bash
 git clone <your-repo-url>
-cd FounderflowBoilerplate
+cd AlgoKnightsBoilerplate
 ```
 
 ### 2. Install dependencies

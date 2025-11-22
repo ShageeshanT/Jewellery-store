@@ -91,7 +91,7 @@ export function PaymentSuccessEmail({
           margin: "0 0 20px 0",
         }}
       >
-        You now have access to all the premium features of Founderflow. Start
+        You now have access to all the premium features of AlgoKnights. Start
         creating professional contracts and growing your business today!
       </Text>
 
@@ -154,9 +154,9 @@ export function PaymentSuccessEmail({
           margin: "0",
         }}
       >
-        Thank you for choosing Founderflow!
+        Thank you for choosing AlgoKnights!
         <br />
-        The Founderflow Team
+        The AlgoKnights Team
       </Text>
     </BaseEmail>
   );

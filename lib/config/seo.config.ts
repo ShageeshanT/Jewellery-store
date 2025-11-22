@@ -4,7 +4,7 @@ import { SiteSettings } from "./settings";
 const SEO_CONFIG: Metadata = {
   title: {
     template: `%s | ${SiteSettings.name}`,
-    default: "Founderflow - Modern Next.js SaaS Boilerplate",
+    default: "AlgoKnights - Modern Next.js SaaS Boilerplate",
   },
   description:
     "A modern, fully featured Next.js boilerplate with authentication, subscriptions, i18n, beautiful UI components, and everything you need to launch your SaaS quickly.",
@@ -13,10 +13,10 @@ const SEO_CONFIG: Metadata = {
   icons: "/static/favicon.ico",
   openGraph: {
     type: "website",
-    siteName: "Founderflow",
+    siteName: "AlgoKnights",
     locale: "en_US",
-    url: "https://Founderflow.online",
-    title: "Founderflow - Next.js SaaS Boilerplate",
+    url: "https://AlgoKnights.online",
+    title: "AlgoKnights - Next.js SaaS Boilerplate",
     description:
       "A modern, fully featured Next.js boilerplate with authentication, subscriptions, i18n, beautiful UI components, and everything you need to launch your SaaS quickly.",
     images: [
@@ -24,14 +24,14 @@ const SEO_CONFIG: Metadata = {
         url: "/og-blog.jpg",
         width: 1200,
         height: 630,
-        alt: "Founderflow - Next.js SaaS Boilerplate",
+        alt: "AlgoKnights - Next.js SaaS Boilerplate",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@Founderflowdev",
-    title: "Founderflow - Next.js SaaS Boilerplate",
+    site: "@AlgoKnightsdev",
+    title: "AlgoKnights - Next.js SaaS Boilerplate",
     description:
       "A modern, fully featured Next.js boilerplate with authentication, subscriptions, i18n, beautiful UI components, and everything you need to launch your SaaS quickly.",
     images: ["/og-blog.jpg"],
