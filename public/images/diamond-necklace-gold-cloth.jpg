@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF3C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FCD34D;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="diamond">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DBEAFE;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#grad3)"/>
+  <path d="M 150 280 Q 300 360, 450 280" fill="none" stroke="#D97706" stroke-width="4"/>
+  <polygon points="300,340 280,370 300,400 320,370" fill="url(#diamond)" stroke="#3B82F6" stroke-width="2"/>
+  <line x1="300" y1="340" x2="300" y2="400" stroke="#3B82F6" stroke-width="1"/>
+  <line x1="280" y1="370" x2="320" y2="370" stroke="#3B82F6" stroke-width="1"/>
+  <circle cx="220" cy="290" r="8" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+  <circle cx="380" cy="290" r="8" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+  <text x="300" y="520" font-family="serif" font-size="28" fill="#78350F" text-anchor="middle" font-weight="300">Diamond Collection</text>
+  <text x="300" y="560" font-family="sans-serif" font-size="16" fill="#92400E" text-anchor="middle" letter-spacing="2">PREMIUM</text>
+</svg>
