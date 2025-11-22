@@ -21,7 +21,7 @@ export default function LandingPage() {
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
           <LiquidEther
-            colors={['#FFD700', '#C0C0C0', '#DAA520', '#F5DEB3']}
+            colors={['#5227FF', '#FF9FFC', '#B19EEF']}
             mouseForce={20}
             cursorSize={100}
             isViscous={false}
