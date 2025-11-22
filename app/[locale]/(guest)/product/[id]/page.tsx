@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/jewellery/ProductGrid";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft, ChevronRight, Heart, Share2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, Share2, Minus, Plus, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
+import { addToCart } from "@/lib/cart-utils";
 
 interface Product {
   id: string;
@@ -57,6 +58,7 @@ interface Gem {
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const productId = params.id as string;
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -66,6 +68,7 @@ export default function ProductDetailPage() {
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     fetchProduct();
@@ -104,6 +107,50 @@ export default function ProductDetailPage() {
     } else {
       navigator.clipboard.writeText(window.location.href);
       toast.success("Link copied to clipboard");
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    addToCart({
+      productId: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.price,
+      mainImage: product.mainImage,
+      sku: product.sku,
+      quantity: quantity,
+    });
+
+    toast.success(`${quantity} ${quantity === 1 ? 'item' : 'items'} added to cart!`, {
+      action: {
+        label: "View Cart",
+        onClick: () => router.push("/cart"),
+      },
+    });
+  };
+
+  const handleBuyNow = () => {
+    if (!product) return;
+
+    addToCart({
+      productId: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.price,
+      mainImage: product.mainImage,
+      sku: product.sku,
+      quantity: quantity,
+    });
+
+    router.push("/cart");
+  };
+
+  const handleQuantityChange = (delta: number) => {
+    const newQuantity = quantity + delta;
+    if (newQuantity >= 1 && (!product?.stockQuantity || newQuantity <= product.stockQuantity)) {
+      setQuantity(newQuantity);
     }
   };
 
@@ -282,17 +329,81 @@ export default function ProductDetailPage() {
               </div>
             )}
 
+            {/* Quantity Selector */}
+            {product.inStock && (
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Quantity
+                </label>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center border rounded-lg">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleQuantityChange(-1)}
+                      disabled={quantity <= 1}
+                      className="h-12 w-12"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="w-16 text-center font-medium text-lg">{quantity}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleQuantityChange(1)}
+                      disabled={product.stockQuantity ? quantity >= product.stockQuantity : false}
+                      className="h-12 w-12"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {product.stockQuantity && (
+                    <span className="text-sm text-gray-500">
+                      {product.stockQuantity} available
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Actions */}
-            <div className="flex gap-3 mb-8">
-              <Button size="lg" className="flex-1" disabled={!product.inStock}>
-                {product.inStock ? "Add to Cart" : "Out of Stock"}
-              </Button>
-              <Button variant="outline" size="lg" onClick={handleShare}>
-                <Share2 className="h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg">
-                <Heart className="h-5 w-5" />
-              </Button>
+            <div className="space-y-3 mb-8">
+              <div className="flex gap-3">
+                <Button
+                  size="lg"
+                  className="flex-1 py-7 text-sm tracking-wider bg-black hover:bg-gray-900 transition-all duration-500"
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                >
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="py-7"
+                  onClick={handleShare}
+                >
+                  <Share2 className="h-5 w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="py-7"
+                >
+                  <Heart className="h-5 w-5" />
+                </Button>
+              </div>
+              {product.inStock && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full py-7 text-sm tracking-wider border-2 border-black hover:bg-black hover:text-white transition-all duration-500"
+                  onClick={handleBuyNow}
+                >
+                  BUY NOW
+                </Button>
+              )}
             </div>
 
             {/* Details Tabs */}
