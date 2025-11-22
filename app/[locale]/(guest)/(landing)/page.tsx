@@ -1,114 +1,186 @@
 import { Button } from "@/components/ui/button";
+import { ReviewList } from "@/components/reviews/ReviewList";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LandingPage() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-4 md:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="mt-32 md:mt-32 text-center">
-          <h1 className="text-2xl md:text-4xl font-bold tracking-tight">
-            Build Your SaaS Faster with Founderflow
+      {/* Hero Section */}
+      <section className="relative h-[600px] flex items-center justify-center bg-gray-100">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/layered-necklace.jpg"
+            alt="Luxury Jewellery Collection"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+
+        <div className="relative z-10 text-center text-white px-4">
+          <div className="mb-6" style={{ letterSpacing: '0.3em' }}>
+            <h2 className="text-sm md:text-base font-light">EXQUISITE CRAFTSMANSHIP</h2>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            TIMELESS ELEGANCE
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            A modern, fully featured Next.js boilerplate with authentication,
-            subscriptions, i18n, beautiful UI components, and everything you
-            need to launch your SaaS quickly.
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+            Discover our collection of handcrafted jewellery, where tradition meets modern design
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://Founderflow.online/docs">
-              <Button size="lg" className="w-full sm:w-auto font-semibold">
-                View Documentation
-              </Button>
-            </Link>
-            <Link href="https://github.com/your-repo">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto font-semibold"
-              >
-                GitHub Repository
+          <Link href="/custom-design">
+            <Button size="lg" className="px-8 py-6 text-lg">
+              DISCOVER
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-16 px-4 md:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">MUST HAVES</h2>
+            <p className="text-gray-600">Our most coveted pieces</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="group cursor-pointer">
+              <Link href="/jewellery">
+                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
+                  <Image
+                    src="/images/rings-ribbon.jpg"
+                    alt="Elegant Rings"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-medium text-center">Signature Rings</h3>
+              </Link>
+            </div>
+
+            <div className="group cursor-pointer">
+              <Link href="/jewellery">
+                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
+                  <Image
+                    src="/images/diamond-necklace-gold-cloth.jpg"
+                    alt="Diamond Necklaces"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-medium text-center">Diamond Collection</h3>
+              </Link>
+            </div>
+
+            <div className="group cursor-pointer">
+              <Link href="/jewellery">
+                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
+                  <Image
+                    src="/images/model-small-earrings.jpg"
+                    alt="Delicate Earrings"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-medium text-center">Elegant Earrings</h3>
+              </Link>
+            </div>
+
+            <div className="group cursor-pointer">
+              <Link href="/jewellery">
+                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
+                  <Image
+                    src="/images/model-wire-hoop.jpg"
+                    alt="Modern Hoops"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-medium text-center">Designer Hoops</h3>
+              </Link>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/jewellery">
+              <Button variant="outline" size="lg">
+                View All Collection
               </Button>
             </Link>
           </div>
         </div>
+      </section>
 
-        {/* Features Section */}
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-xl w-full">
-          <div className="flex flex-col items-center text-center p-6">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-2">
-              Ready-to-use Components
-            </h3>
-            <p className="text-muted-foreground">
-              Beautiful and responsive UI components built with Tailwind CSS
-            </p>
+      {/* Services Section */}
+      <section className="py-16 px-4 md:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">OUR SERVICES</h2>
+            <p className="text-gray-600">Excellence in every detail</p>
           </div>
 
-          <div className="flex flex-col items-center text-center p-6">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-                />
-              </svg>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
+                ✦
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Custom Design</h3>
+              <p className="text-gray-600 mb-4">
+                Bring your vision to life with our bespoke jewellery design service
+              </p>
+              <Link href="/custom-design">
+                <Button variant="link">Learn More →</Button>
+              </Link>
             </div>
-            <h3 className="text-xl font-semibold mb-2">i18n Support</h3>
-            <p className="text-muted-foreground">
-              Built-in internationalization support for multiple languages
-            </p>
-          </div>
 
-          <div className="flex flex-col items-center text-center p-6">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
+            <div className="text-center p-6">
+              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
+                ⚒
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Repairs & Services</h3>
+              <p className="text-gray-600 mb-4">
+                Expert repair, resizing, and maintenance for your precious pieces
+              </p>
+              <Link href="/jewellery-repairs">
+                <Button variant="link">Learn More →</Button>
+              </Link>
             </div>
-            <h3 className="text-xl font-semibold mb-2">
-              Authentication & More
-            </h3>
-            <p className="text-muted-foreground">
-              Complete authentication flow and subscription management
-            </p>
+
+            <div className="text-center p-6">
+              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
+                ◈
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Visit Our Stores</h3>
+              <p className="text-gray-600 mb-4">
+                Experience our collections in person at our locations
+              </p>
+              <Link href="/stores">
+                <Button variant="link">Find a Store →</Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-16 px-4 md:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">WHAT OUR CUSTOMERS SAY</h2>
+            <p className="text-gray-600">Real experiences from our valued clients</p>
+          </div>
+
+          <ReviewList limit={6} featuredOnly={false} />
+
+          <div className="text-center mt-8">
+            <Link href="/custom-design">
+              <Button variant="outline">Share Your Experience</Button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
