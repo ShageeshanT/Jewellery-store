@@ -1,31 +1,31 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
-import { locales } from "@/lib/config/locales";
+import { routing } from "@/i18n/routing";
 import { publicRoutes, adminRoutes } from "@/lib/routes";
 import { NextResponse } from "next/server";
 
 // Configure i18n middleware
-const intlMiddleware = createMiddleware({
-  locales: locales.values,
-  defaultLocale: locales.default,
-});
+const intlMiddleware = createMiddleware(routing);
 
 // Create matchers for public and admin routes
 const isPublicRoute = createRouteMatcher(publicRoutes);
 const isAdminRoute = createRouteMatcher(adminRoutes);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Redirect "/" to default or user-selected locale
-  if (req.nextUrl.pathname === "/") {
-    const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value;
-    const locale =
-      cookieLocale && locales.values.includes(cookieLocale)
-        ? cookieLocale
-        : locales.default;
+  // Skip intl middleware for API and TRPC routes
+  if (
+    req.nextUrl.pathname.startsWith("/api") ||
+    req.nextUrl.pathname.startsWith("/trpc")
+  ) {
+    return NextResponse.next();
+  }
 
-    const url = req.nextUrl.clone();
-    url.pathname = `/${locale}`;
-    return NextResponse.redirect(url);
+  // Handle locale routing first - let next-intl handle the locale detection and redirect
+  const intlResponse = intlMiddleware(req);
+
+  // If intlMiddleware returns a redirect (e.g., "/" to "/en"), return it
+  if (intlResponse) {
+    return intlResponse;
   }
 
   // Check if route is an admin route
@@ -44,7 +44,8 @@ export default clerkMiddleware(async (auth, req) => {
 
     if (role !== "admin") {
       // Redirect to home if not admin
-      const homeUrl = new URL("/", req.url);
+      const locale = routing.defaultLocale;
+      const homeUrl = new URL(`/${locale}`, req.url);
       return NextResponse.redirect(homeUrl);
     }
   }
@@ -53,16 +54,7 @@ export default clerkMiddleware(async (auth, req) => {
     await auth.protect(); // Protect private routes
   }
 
-  if (
-    req.nextUrl.pathname.startsWith("/api") ||
-    req.nextUrl.pathname.startsWith("/trpc")
-  ) {
-    return NextResponse.next();
-  }
-
-  const intlResponse = intlMiddleware(req);
-
-  return intlResponse;
+  return NextResponse.next();
 });
 
 // Define config for the middleware

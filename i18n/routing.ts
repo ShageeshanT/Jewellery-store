@@ -11,4 +11,7 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: locales.default,
+
+  // Always use locale prefix in the URL
+  localePrefix: "always",
 });
