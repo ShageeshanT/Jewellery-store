@@ -62,5 +62,13 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
 // Define config for the middleware
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/(api|trpc)(.*)"],
+  matcher: [
+    // Match all pathnames except for:
+    // - files with extensions (e.g., .svg, .png, .jpg, .css, .js)
+    // - _next folder
+    // - static folder
+    "/((?!_next|static|.*\\..*).*)",
+    // Include API and TRPC routes
+    "/(api|trpc)(.*)",
+  ],
 };
