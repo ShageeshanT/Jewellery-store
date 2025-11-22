@@ -3,6 +3,7 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 import { publicRoutes, adminRoutes } from "@/lib/routes";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 // Configure i18n middleware
 const intlMiddleware = createMiddleware(routing);
@@ -11,7 +12,7 @@ const intlMiddleware = createMiddleware(routing);
 const isPublicRoute = createRouteMatcher(publicRoutes);
 const isAdminRoute = createRouteMatcher(adminRoutes);
 
-export default clerkMiddleware(async (auth, req) => {
+export default clerkMiddleware(async (auth, req: NextRequest) => {
   // Skip intl middleware for API and TRPC routes
   if (
     req.nextUrl.pathname.startsWith("/api") ||
@@ -21,9 +22,11 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // Handle locale routing first - let next-intl handle the locale detection and redirect
+  // The intlMiddleware will redirect paths like "/jewellery" to "/en/jewellery"
+  // and "/" to "/en"
   const intlResponse = intlMiddleware(req);
 
-  // If intlMiddleware returns a redirect (e.g., "/" to "/en"), return it
+  // If intlMiddleware returns a response (redirect or rewrite), return it
   if (intlResponse) {
     return intlResponse;
   }

@@ -1,7 +1,9 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { routing } from "@/i18n/routing";
 
 export default function NotFound() {
+  const locale = routing.defaultLocale;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-amber-50/20 flex items-center justify-center px-4">
       <div className="text-center max-w-2xl">
@@ -13,15 +15,15 @@ export default function NotFound() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/">
+          <a href={`/${locale}`}>
             <Button
               size="lg"
               className="px-10 py-7 text-sm tracking-wider bg-black hover:bg-gray-900 transition-all duration-500"
             >
               GO TO HOMEPAGE
             </Button>
-          </Link>
-          <Link href="/jewellery">
+          </a>
+          <a href={`/${locale}/jewellery`}>
             <Button
               size="lg"
               variant="outline"
@@ -29,7 +31,7 @@ export default function NotFound() {
             >
               BROWSE COLLECTION
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
