@@ -37,7 +37,7 @@ export default async function RootLayout({
   const messages = await getMessages(resolvedParams.locale);
 
   return (
-    <ClerkProvider dynamic>
+    <ClerkProvider>
       <html lang={resolvedParams.locale} suppressHydrationWarning>
         <head>
           <meta name="robots" content="index, follow" />
