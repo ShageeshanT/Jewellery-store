@@ -6,107 +6,163 @@ import Image from "next/image";
 export default function LandingPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center bg-gray-100">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/layered-necklace.jpg"
-            alt="Luxury Jewellery Collection"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
+      {/* Hero Section - Luxury Split Layout */}
+      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-50 via-white to-amber-50/30 pt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-10 opacity-0 animate-[fadeIn_1s_ease-out_0.2s_forwards]">
+              <div className="space-y-6">
+                <p className="text-xs md:text-sm tracking-[0.4em] text-gray-500 font-light uppercase">
+                  Timeless Elegance Since 1998
+                </p>
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight text-gray-900 leading-none">
+                  Discover
+                  <br />
+                  <span className="font-serif italic font-normal bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                    Brilliance
+                  </span>
+                </h1>
+              </div>
 
-        <div className="relative z-10 text-center text-white px-4">
-          <div className="mb-6" style={{ letterSpacing: '0.3em' }}>
-            <h2 className="text-sm md:text-base font-light">EXQUISITE CRAFTSMANSHIP</h2>
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg font-light">
+                Explore our curated collection of handcrafted jewellery, where artistry meets sophistication in every exquisite detail.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                <Link href="/jewellery" className="group">
+                  <Button
+                    size="lg"
+                    className="w-full sm:w-auto px-10 py-7 text-sm tracking-wider bg-black hover:bg-gray-900 transition-all duration-500 transform group-hover:scale-105"
+                  >
+                    EXPLORE COLLECTION
+                  </Button>
+                </Link>
+                <Link href="/custom-design" className="group">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full sm:w-auto px-10 py-7 text-sm tracking-wider border-2 border-black hover:bg-black hover:text-white transition-all duration-500 transform group-hover:scale-105"
+                  >
+                    CUSTOM DESIGN
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
+                <div>
+                  <p className="text-3xl font-light text-gray-900">25+</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Years</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-light text-gray-900">1000+</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Clients</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-light text-gray-900">100%</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Handcrafted</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative h-[500px] md:h-[600px] lg:h-[750px] opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards]">
+              <div className="absolute -inset-4 bg-gradient-to-br from-amber-200/30 to-rose-200/30 rounded-2xl blur-2xl" />
+              <div className="relative h-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/layered-necklace.jpg"
+                  alt="Luxury Jewellery Collection"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            TIMELESS ELEGANCE
-          </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Discover our collection of handcrafted jewellery, where tradition meets modern design
-          </p>
-          <Link href="/custom-design">
-            <Button size="lg" className="px-8 py-6 text-lg">
-              DISCOVER
-            </Button>
-          </Link>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
+      {/* Featured Products - MUST HAVES */}
+      <section className="py-28 px-4 md:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">MUST HAVES</h2>
-            <p className="text-gray-600">Our most coveted pieces</p>
+          <div className="text-center mb-20 space-y-6">
+            <p className="text-xs tracking-[0.4em] text-gray-500 font-light uppercase">
+              Curated Selection
+            </p>
+            <h2 className="text-5xl md:text-6xl font-extralight text-gray-900 tracking-tight">
+              MUST HAVES
+            </h2>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg font-light">
+              Discover our most coveted pieces, meticulously crafted for timeless appeal
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="group cursor-pointer">
-              <Link href="/jewellery">
-                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
-                  <Image
-                    src="/images/rings-ribbon.jpg"
-                    alt="Elegant Rings"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            {[
+              {
+                image: "/images/rings-ribbon.jpg",
+                name: "Signature Rings",
+                price: "FROM RS 77,900.00",
+                link: "/jewellery"
+              },
+              {
+                image: "/images/diamond-necklace-gold-cloth.jpg",
+                name: "Diamond Collection",
+                price: "FROM RS 115,400.00",
+                link: "/jewellery"
+              },
+              {
+                image: "/images/model-small-earrings.jpg",
+                name: "Elegant Earrings",
+                price: "FROM RS 57,700.00",
+                link: "/jewellery"
+              },
+              {
+                image: "/images/model-wire-hoop.jpg",
+                name: "Designer Hoops",
+                price: "FROM RS 83,900.00",
+                link: "/jewellery"
+              }
+            ].map((product, index) => (
+              <Link
+                key={index}
+                href={product.link}
+                className="group block opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                <div className="space-y-5">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50 rounded-sm">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-all duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  </div>
+                  <div className="space-y-2 text-center">
+                    <h3 className="text-sm font-medium text-gray-900 uppercase tracking-[0.15em] group-hover:text-amber-600 transition-colors duration-300">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 tracking-wider font-light">
+                      {product.price}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-medium text-center">Signature Rings</h3>
               </Link>
-            </div>
-
-            <div className="group cursor-pointer">
-              <Link href="/jewellery">
-                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
-                  <Image
-                    src="/images/diamond-necklace-gold-cloth.jpg"
-                    alt="Diamond Necklaces"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="font-medium text-center">Diamond Collection</h3>
-              </Link>
-            </div>
-
-            <div className="group cursor-pointer">
-              <Link href="/jewellery">
-                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
-                  <Image
-                    src="/images/model-small-earrings.jpg"
-                    alt="Delicate Earrings"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="font-medium text-center">Elegant Earrings</h3>
-              </Link>
-            </div>
-
-            <div className="group cursor-pointer">
-              <Link href="/jewellery">
-                <div className="relative aspect-square overflow-hidden bg-gray-100 rounded-lg mb-4">
-                  <Image
-                    src="/images/model-wire-hoop.jpg"
-                    alt="Modern Hoops"
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="font-medium text-center">Designer Hoops</h3>
-              </Link>
-            </div>
+            ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link href="/jewellery">
-              <Button variant="outline" size="lg">
-                View All Collection
+          <div className="text-center mt-20">
+            <Link href="/jewellery" className="group inline-block">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-16 py-7 text-sm tracking-[0.2em] border-2 border-black hover:bg-black hover:text-white transition-all duration-500 transform group-hover:scale-105"
+              >
+                EXPLORE ALL
               </Button>
             </Link>
           </div>
@@ -114,69 +170,111 @@ export default function LandingPage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8 bg-gray-50">
+      <section className="py-28 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-amber-50/20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">OUR SERVICES</h2>
-            <p className="text-gray-600">Excellence in every detail</p>
+          <div className="text-center mb-20 space-y-6">
+            <p className="text-xs tracking-[0.4em] text-gray-500 font-light uppercase">
+              Excellence in Every Detail
+            </p>
+            <h2 className="text-5xl md:text-6xl font-extralight text-gray-900 tracking-tight">
+              OUR SERVICES
+            </h2>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
-                ✦
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              {
+                icon: "✦",
+                title: "Custom Design",
+                description: "Bring your vision to life with our bespoke jewellery design service",
+                link: "/services"
+              },
+              {
+                icon: "⚒",
+                title: "Repairs & Services",
+                description: "Expert repair, resizing, and maintenance for your precious pieces",
+                link: "/services"
+              },
+              {
+                icon: "◈",
+                title: "Visit Our Stores",
+                description: "Experience our collections in person at our exclusive locations",
+                link: "/stores"
+              }
+            ].map((service, index) => (
+              <div
+                key={index}
+                className="text-center p-8 bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center mx-auto mb-6 text-3xl transform hover:scale-110 transition-transform duration-300">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-medium mb-4 tracking-wide">{service.title}</h3>
+                <p className="text-gray-600 mb-6 font-light leading-relaxed">
+                  {service.description}
+                </p>
+                <Link href={service.link}>
+                  <Button variant="link" className="text-black hover:text-amber-600 transition-colors duration-300">
+                    Learn More →
+                  </Button>
+                </Link>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Custom Design</h3>
-              <p className="text-gray-600 mb-4">
-                Bring your vision to life with our bespoke jewellery design service
-              </p>
-              <Link href="/custom-design">
-                <Button variant="link">Learn More →</Button>
-              </Link>
-            </div>
-
-            <div className="text-center p-6">
-              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
-                ⚒
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Repairs & Services</h3>
-              <p className="text-gray-600 mb-4">
-                Expert repair, resizing, and maintenance for your precious pieces
-              </p>
-              <Link href="/jewellery-repairs">
-                <Button variant="link">Learn More →</Button>
-              </Link>
-            </div>
-
-            <div className="text-center p-6">
-              <div className="h-16 w-16 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-2xl">
-                ◈
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Visit Our Stores</h3>
-              <p className="text-gray-600 mb-4">
-                Experience our collections in person at our locations
-              </p>
-              <Link href="/stores">
-                <Button variant="link">Find a Store →</Button>
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Reviews Section */}
-      <section className="py-16 px-4 md:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">WHAT OUR CUSTOMERS SAY</h2>
-            <p className="text-gray-600">Real experiences from our valued clients</p>
+      <section className="py-28 px-4 md:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-20 space-y-6">
+            <p className="text-xs tracking-[0.4em] text-gray-500 font-light uppercase">
+              Testimonials
+            </p>
+            <h2 className="text-5xl md:text-6xl font-extralight text-gray-900 tracking-tight">
+              WHAT OUR CLIENTS SAY
+            </h2>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
           </div>
 
           <ReviewList limit={6} featuredOnly={false} />
 
-          <div className="text-center mt-8">
-            <Link href="/custom-design">
-              <Button variant="outline">Share Your Experience</Button>
+          <div className="text-center mt-12">
+            <Link href="/services" className="group inline-block">
+              <Button
+                variant="outline"
+                className="px-12 py-6 text-sm tracking-[0.2em] border-2 border-black hover:bg-black hover:text-white transition-all duration-500 transform group-hover:scale-105"
+              >
+                SHARE YOUR EXPERIENCE
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-32 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] bg-repeat" />
+        </div>
+        <div className="relative max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl md:text-6xl font-extralight tracking-tight">
+            Begin Your Journey
+          </h2>
+          <p className="text-xl text-gray-300 font-light max-w-2xl mx-auto">
+            Let us help you create a piece that tells your unique story
+          </p>
+          <div className="pt-6">
+            <Link href="/custom-design" className="group inline-block">
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-16 py-7 text-sm tracking-[0.2em] border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-500 transform group-hover:scale-105"
+              >
+                START YOUR DESIGN
+              </Button>
             </Link>
           </div>
         </div>

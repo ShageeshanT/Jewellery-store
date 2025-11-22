@@ -435,6 +435,27 @@ button {
   text-shadow: 0 0 20px hsl(var(--secondary));
 }
 
+/* Luxury Jewellery Store Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive design utilities */
 @media (max-width: 768px) {
   .animate-gradient-x,
@@ -445,4 +466,9 @@ button {
   .animate-float {
     animation-duration: 8s;
   }
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
