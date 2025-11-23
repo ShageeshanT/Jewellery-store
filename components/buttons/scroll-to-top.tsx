@@ -1,44 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 export default function ScrollToTopButton() {
   const [activeSection, setActiveSection] = useState("");
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const ticking = useRef(false);
 
   // Handle scroll to update active section and show/hide scroll to top button
   useEffect(() => {
     const handleScroll = () => {
-      // Show/hide scroll to top button
-      if (window.scrollY > 500) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          // Show/hide scroll to top button
+          const shouldShow = window.scrollY > 500;
+          if (shouldShow !== showScrollTop) {
+            setShowScrollTop(shouldShow);
+          }
+
+          // Update active section based on scroll position (less expensive now)
+          const sections = document.querySelectorAll("section[id]");
+          let currentSection = "";
+
+          sections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY;
+            const sectionHeight = rect.height;
+            if (
+              window.scrollY >= sectionTop - 100 &&
+              window.scrollY < sectionTop + sectionHeight - 100
+            ) {
+              currentSection = section.getAttribute("id") || "";
+            }
+          });
+
+          if (currentSection !== activeSection) {
+            setActiveSection(currentSection);
+          }
+
+          ticking.current = false;
+        });
+
+        ticking.current = true;
       }
-
-      // Update active section based on scroll position
-      const sections = document.querySelectorAll("section[id]");
-      let currentSection = "";
-
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        if (
-          window.scrollY >= sectionTop - 100 &&
-          window.scrollY < sectionTop + sectionHeight - 100
-        ) {
-          currentSection = section.getAttribute("id") || "";
-        }
-      });
-
-      setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [showScrollTop, activeSection]);
 
   // Scroll to top
   const scrollToTop = () => {

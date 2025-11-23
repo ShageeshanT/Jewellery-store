@@ -183,11 +183,13 @@ export default function JewelleryPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-80">
-                <FilterPanel
-                  categories={categories}
-                  metals={metals}
-                  onFilterChange={handleFilterChange}
-                />
+                {mobileFiltersOpen && (
+                  <FilterPanel
+                    categories={categories}
+                    metals={metals}
+                    onFilterChange={handleFilterChange}
+                  />
+                )}
               </SheetContent>
             </Sheet>
           </div>

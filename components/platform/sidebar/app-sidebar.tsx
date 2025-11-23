@@ -19,12 +19,12 @@ import {
   User,
 } from "lucide-react";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo, memo } from "react";
 
 // setup
 const showRecentlyClicked = false;
 
-export function AppSidebar() {
+export const AppSidebar = memo(function AppSidebar() {
   const [recentlyClicked, setRecentlyClicked] = useState<string[]>([]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function AppSidebar() {
     }
   }, []);
 
-  const handleSidebarButtonClick = (path: string) => {
+  const handleSidebarButtonClick = useCallback((path: string) => {
     // Only track recent clicks if showRecentlyClicked is true
     if (!showRecentlyClicked) return;
 
@@ -60,12 +60,15 @@ export function AppSidebar() {
     // Save the updated paths back to the cookies
     Cookies.set("clickedPaths", JSON.stringify(filteredPaths));
     setRecentlyClicked(filteredPaths); // Update state to re-render recently clicked buttons
-  };
+  }, []);
 
   // Filter out the recently clicked items from sidebarItems only if showRecentlyClicked is true
-  const filteredSidebarItems = showRecentlyClicked
-    ? sidebarItems.filter((item) => !recentlyClicked.includes(item.path))
-    : sidebarItems;
+  const filteredSidebarItems = useMemo(() =>
+    showRecentlyClicked
+      ? sidebarItems.filter((item) => !recentlyClicked.includes(item.path))
+      : sidebarItems,
+    [recentlyClicked]
+  );
 
   return (
     <Sidebar className="bg-background">
@@ -79,13 +82,13 @@ export function AppSidebar() {
         {showRecentlyClicked && recentlyClicked.length > 0 && (
           <SidebarGroup className="space-y-1 sticky top-0 z-50 bg-background  ">
             <p className="text-xs pb-1 text-muted-foreground">Recently</p>
-            {recentlyClicked.map((path, idx) => {
+            {recentlyClicked.map((path) => {
               const item = sidebarItems.find((item) => item.path === path);
               return item ? (
                 <SidebarButton
-                  key={idx}
+                  key={item.path}
                   path={item.path}
-                  onClick={() => handleSidebarButtonClick(item.path)} // Pass the click handler
+                  onClick={handleSidebarButtonClick}
                 >
                   {item.icon}
                   <span>{item.label}</span>
@@ -97,11 +100,11 @@ export function AppSidebar() {
         {/* Main Navigation Section */}
         <SidebarGroup className="space-y-1">
           <p className="text-xs pb-1 text-muted-foreground">Navigation</p>
-          {filteredSidebarItems.map((data, idx) => (
+          {filteredSidebarItems.map((data) => (
             <SidebarButton
-              key={idx}
+              key={data.path}
               path={data.path}
-              onClick={() => handleSidebarButtonClick(data.path)} // Pass the click handler
+              onClick={handleSidebarButtonClick}
             >
               {data.icon}
               <span>{data.label}</span>
@@ -112,7 +115,7 @@ export function AppSidebar() {
       <SidebarFooter />
     </Sidebar>
   );
-}
+});
 
 const sidebarItems = [
   {

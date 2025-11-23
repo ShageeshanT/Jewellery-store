@@ -1,55 +1,45 @@
 "use client";
 
 import { useAppContext } from "@/context/app";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useAuth } from "@clerk/nextjs";
 
 export default function LoadUserData() {
   const { setBilling, setUser } = useAppContext();
   const [loading, setLoading] = useState(false);
 
-  // Check if Clerk is available and configured
-  const isClerkConfigured = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== 'pk_test_placeholder';
+  // Always call hooks at the top level
+  const { isSignedIn } = useAuth();
 
-  let isSignedIn = false;
-
-  if (isClerkConfigured) {
-    // Only use Clerk if it's properly configured
-    try {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { useAuth } = require("@clerk/nextjs");
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const auth = useAuth();
-      isSignedIn = auth.isSignedIn || false;
-    } catch (error) {
-      // Clerk not available
-    }
-  }
-
-  const fetchUserBillingData = async () => {
+  const fetchUserBillingData = useCallback(async () => {
     setLoading(true);
-    const res = await fetch(`/api/app`, {
-      method: "GET",
-      cache: "force-cache",
-    });
+    try {
+      const res = await fetch(`/api/app`, {
+        method: "GET",
+        cache: "no-store", // Changed from force-cache to get fresh data
+      });
 
-    if (!res.ok) {
+      if (!res.ok) {
+        setLoading(false);
+        return;
+      }
+
+      const data = await res.json();
+      setBilling(data.billing);
+      setUser(data.user);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const data = await res.json();
-    setBilling(data.billing);
-    setUser(data.user);
-    setLoading(false);
-  };
+  }, [setBilling, setUser]);
 
   useEffect(() => {
     if (isSignedIn) {
       fetchUserBillingData();
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, fetchUserBillingData]);
 
   return (
     <>
