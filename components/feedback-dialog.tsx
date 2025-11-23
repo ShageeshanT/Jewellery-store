@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -65,10 +65,9 @@ export const FeedbackDialog = () => {
   // Show Feedback Dialog
   const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
 
-  useEffect(() => {
-    if (!user || !user.createdAt) return; // Ensure user data is available
-
-    // if (myFeedback?.submited) return;
+  // Memoize date calculations to avoid recalculating on every render
+  const shouldShowFeedback = useMemo(() => {
+    if (!user?.createdAt) return false;
 
     const createdAt = new Date(user.createdAt);
     const now = new Date();
@@ -80,14 +79,18 @@ export const FeedbackDialog = () => {
 
     if (lastDismissed) {
       const nextShowDate = new Date(lastDismissed);
-      if (now < nextShowDate) return; // Don't show if within cooldown period
+      if (now < nextShowDate) return false;
     }
 
     // Show feedback dialog only if 3 days have passed since account creation
-    if (now >= threeDaysAfterCreation) {
+    return now >= threeDaysAfterCreation;
+  }, [user?.createdAt]);
+
+  useEffect(() => {
+    if (shouldShowFeedback) {
       setShowFeedbackDialog(true);
     }
-  }, [user]); // Runs when `user` data is available
+  }, [shouldShowFeedback]);
 
   return (
     <Dialog

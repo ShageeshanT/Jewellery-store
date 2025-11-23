@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useReducer, useRef } from "react";
+import { useState, useEffect, useReducer, useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
@@ -43,6 +44,7 @@ export default function Header1() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
+  const scrollTicking = useRef(false);
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("GuestHeader");
@@ -63,9 +65,19 @@ export default function Header1() {
     }
   }, [data, setBilling, setUser]);
 
+  // Throttled scroll handler
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (!scrollTicking.current) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 10);
+          scrollTicking.current = false;
+        });
+        scrollTicking.current = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -209,11 +221,15 @@ export default function Header1() {
                         className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b last:border-b-0"
                       >
                         {product.mainImage && (
-                          <img
-                            src={product.mainImage}
-                            alt={product.name}
-                            className="w-12 h-12 object-cover rounded"
-                          />
+                          <div className="relative w-12 h-12 flex-shrink-0">
+                            <Image
+                              src={product.mainImage}
+                              alt={product.name}
+                              fill
+                              className="object-cover rounded"
+                              sizes="48px"
+                            />
+                          </div>
                         )}
                         <div className="flex-1">
                           <p className="font-medium text-sm">{product.name}</p>

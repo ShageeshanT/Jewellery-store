@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { memo, useMemo } from "react";
 
 interface ProductCardProps {
   id: string;
@@ -18,7 +19,7 @@ interface ProductCardProps {
   className?: string;
 }
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   id,
   name,
   slug,
@@ -30,10 +31,13 @@ export function ProductCard({
   featured = false,
   className
 }: ProductCardProps) {
-  const hasDiscount = compareAtPrice && compareAtPrice > price;
-  const discountPercentage = hasDiscount
-    ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100)
-    : 0;
+  const { hasDiscount, discountPercentage } = useMemo(() => {
+    const hasDiscount = compareAtPrice && compareAtPrice > price;
+    const discountPercentage = hasDiscount
+      ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100)
+      : 0;
+    return { hasDiscount, discountPercentage };
+  }, [price, compareAtPrice]);
 
   return (
     <div className={cn("group relative", className)}>
@@ -108,4 +112,4 @@ export function ProductCard({
       </div>
     </div>
   );
-}
+});

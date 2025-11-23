@@ -18,26 +18,29 @@ export default function LandingPage() {
     <>
       {/* Hero Section - Luxury Split Layout */}
       <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        {/* Animated Background */}
-        <div className="absolute inset-0 z-0">
+        {/* Animated Background - Only on desktop for performance */}
+        <div className="absolute inset-0 z-0 hidden lg:block">
           <LiquidEther
             colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-            mouseForce={20}
-            cursorSize={100}
+            mouseForce={15}
+            cursorSize={80}
             isViscous={false}
-            viscous={30}
-            iterationsViscous={32}
-            iterationsPoisson={32}
-            resolution={0.5}
+            viscous={20}
+            iterationsViscous={16}
+            iterationsPoisson={16}
+            resolution={0.35}
             isBounce={false}
-            autoDemo={true}
-            autoSpeed={0.5}
-            autoIntensity={2.2}
-            takeoverDuration={0.25}
-            autoResumeDelay={3000}
-            autoRampDuration={0.6}
+            autoDemo={false}
+            autoSpeed={0.3}
+            autoIntensity={1.5}
+            takeoverDuration={0.2}
+            autoResumeDelay={4000}
+            autoRampDuration={0.4}
           />
         </div>
+
+        {/* Gradient background for mobile */}
+        <div className="absolute inset-0 z-0 lg:hidden bg-gradient-to-br from-purple-100 via-pink-50 to-purple-50" />
 
         {/* Content overlay */}
         <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-1" />
